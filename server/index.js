@@ -8,7 +8,7 @@ const passport = require("passport");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const { databaseUrl } = require("../config/config").completeConfig[
+const { databaseUrl, serverPort } = require("../config/config").completeConfig[
   process.env.NODE_ENV || "default"
 ];
 
@@ -35,12 +35,12 @@ app
           return handle(req, res);
         });
 
-        app.listen(3000, (err) => {
+        app.listen(serverPort, (err) => {
           if (err) {
             throw err;
           } else {
             success({
-              message: `server ready on port ${3000}`,
+              message: `server ready on port ${serverPort}`,
               badge: true,
             });
           }
